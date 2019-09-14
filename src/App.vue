@@ -1,16 +1,19 @@
 <template>
   <div>
     <Transport v-on:play-function="playFunction" v-on:stop-function="stopFunction" />
+    <Track v-on:box-click="boxClick" />
   </div>
 </template>
 
 <script>
 import Transport from "./components/Transport.vue";
+import Track from "./components/Track.vue";
 
 export default {
   name: "App",
   components: {
-    Transport
+    Transport,
+    Track
   },
   data() {
     return {
@@ -55,7 +58,7 @@ export default {
         }
 
         elapsed = elapsed + 1;
-        if (elapsed == 320) {
+        if (elapsed == 321) {
           elapsed = 0;
         }
       }, 14);
@@ -74,6 +77,9 @@ export default {
     },
     stopFunction() {
       clearInterval(loop);
+    },
+    boxClick(i) {
+      this.snareList.push(i * 10);
     }
   }
 };
