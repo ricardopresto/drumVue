@@ -79,7 +79,7 @@ export default {
       clearInterval(loop);
     },
     boxClick(i) {
-      this.snareList.push(i * 10);
+      this.snareList.push(i * 10 - 10);
     }
   }
 };

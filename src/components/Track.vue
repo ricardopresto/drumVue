@@ -1,28 +1,29 @@
 <template>
   <div>
     <div id="container">
-      <div id="box" v-for="i in 32" v-bind:key="i" v-on:click="boxClick"></div>
+      <Beat v-for="i in 32" :key="i" :index="i" @box-clicked="$emit('box-click', i)" />
     </div>
   </div>
 </template>
 
 <script>
+import Beat from "./Beat.vue";
+
 export default {
   name: "Track",
-  methods: {
-    boxClick() {
-      this.$emit("box-click", i);
-    }
-  }
+  components: {
+    Beat
+  },
+  methods: {}
 };
 </script>
 
 <style scoped>
-#box {
-  width: 20px;
+#container {
+  width: 100%;
   height: 20px;
-  background-color: aqua;
   margin: 2px;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
 }
 </style>
