@@ -1,7 +1,9 @@
 <template>
   <div>
     <Transport v-on:play-function="playFunction" v-on:stop-function="stopFunction" />
-    <Track v-on:box-click="boxClick" />
+    <Track v-on:box-click="snareClick" />
+    <Track v-on:box-click="kickClick" />
+    <Track v-on:box-click="hatClick" />
   </div>
 </template>
 
@@ -17,26 +19,9 @@ export default {
   },
   data() {
     return {
-      snareList: [40, 70, 120, 200, 280, 310],
-      kickList: [0, 100, 160, 260],
-      hatList: [
-        0,
-        20,
-        40,
-        60,
-        80,
-        100,
-        120,
-        140,
-        160,
-        180,
-        200,
-        220,
-        240,
-        260,
-        280,
-        300
-      ],
+      snareList: [],
+      kickList: [],
+      hatList: [],
       snare: new Audio(require("./sounds/snare.mp3")),
       kick: new Audio(require("./sounds/kick.mp3")),
       hat: new Audio(require("./sounds/hat.mp3"))
@@ -78,8 +63,32 @@ export default {
     stopFunction() {
       clearInterval(loop);
     },
-    boxClick(i) {
-      this.snareList.push(i * 10 - 10);
+    snareClick(i) {
+      let vm = this;
+      let index = i * 10 - 10;
+      if (!vm.snareList.includes(index)) {
+        vm.snareList.push(index);
+      } else {
+        vm.snareList = vm.snareList.filter(n => n != index);
+      }
+    },
+    kickClick(i) {
+      let vm = this;
+      let index = i * 10 - 10;
+      if (!vm.kickList.includes(index)) {
+        vm.kickList.push(index);
+      } else {
+        vm.kickList = vm.kickList.filter(n => n != index);
+      }
+    },
+    hatClick(i) {
+      let vm = this;
+      let index = i * 10 - 10;
+      if (!vm.hatList.includes(index)) {
+        vm.hatList.push(index);
+      } else {
+        vm.hatList = vm.hatList.filter(n => n != index);
+      }
     }
   }
 };

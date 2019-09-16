@@ -13,8 +13,7 @@ export default {
   name: "Track",
   components: {
     Beat
-  },
-  methods: {}
+  }
 };
 </script>
 
@@ -22,7 +21,7 @@ export default {
 #container {
   width: 100%;
   height: 20px;
-  margin: 2px;
+  margin: 10px;
   display: flex;
   flex-direction: row;
 }
