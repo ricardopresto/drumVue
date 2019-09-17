@@ -12,9 +12,6 @@ export default {
       selected: false
     };
   },
-  props: {
-    index: Number
-  },
   methods: {
     boxClick() {
       this.$emit("box-clicked");

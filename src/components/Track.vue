@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="container">
-      <Beat v-for="i in 32" :key="i" :index="i" @box-clicked="$emit('box-click', i)" />
+      <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i * 10 - 10)" />
     </div>
   </div>
 </template>

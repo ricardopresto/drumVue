@@ -4,18 +4,21 @@
     <Track v-on:box-click="snareClick" />
     <Track v-on:box-click="kickClick" />
     <Track v-on:box-click="hatClick" />
+    <Counter v-bind:position="position" />
   </div>
 </template>
 
 <script>
 import Transport from "./components/Transport.vue";
 import Track from "./components/Track.vue";
+import Counter from "./components/Counter.vue";
 
 export default {
   name: "App",
   components: {
     Transport,
-    Track
+    Track,
+    Counter
   },
   data() {
     return {
@@ -24,7 +27,8 @@ export default {
       hatList: [],
       snare: new Audio(require("./sounds/snare.mp3")),
       kick: new Audio(require("./sounds/kick.mp3")),
-      hat: new Audio(require("./sounds/hat.mp3"))
+      hat: new Audio(require("./sounds/hi-hat.mp3")),
+      position: 0
     };
   },
   methods: {
@@ -41,7 +45,9 @@ export default {
         if (vm.hatList.includes(elapsed)) {
           vm.hatPlay();
         }
-
+        if (elapsed % 10 == 0) {
+          vm.position = elapsed / 10 + 1;
+        }
         elapsed = elapsed + 1;
         if (elapsed == 321) {
           elapsed = 0;
@@ -62,32 +68,30 @@ export default {
     },
     stopFunction() {
       clearInterval(loop);
+      this.position = 0;
     },
     snareClick(i) {
       let vm = this;
-      let index = i * 10 - 10;
-      if (!vm.snareList.includes(index)) {
-        vm.snareList.push(index);
+      if (!vm.snareList.includes(i)) {
+        vm.snareList.push(i);
       } else {
-        vm.snareList = vm.snareList.filter(n => n != index);
+        vm.snareList = vm.snareList.filter(n => n != i);
       }
     },
     kickClick(i) {
       let vm = this;
-      let index = i * 10 - 10;
-      if (!vm.kickList.includes(index)) {
-        vm.kickList.push(index);
+      if (!vm.kickList.includes(i)) {
+        vm.kickList.push(i);
       } else {
-        vm.kickList = vm.kickList.filter(n => n != index);
+        vm.kickList = vm.kickList.filter(n => n != i);
       }
     },
     hatClick(i) {
       let vm = this;
-      let index = i * 10 - 10;
-      if (!vm.hatList.includes(index)) {
-        vm.hatList.push(index);
+      if (!vm.hatList.includes(i)) {
+        vm.hatList.push(i);
       } else {
-        vm.hatList = vm.hatList.filter(n => n != index);
+        vm.hatList = vm.hatList.filter(n => n != i);
       }
     }
   }
