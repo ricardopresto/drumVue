@@ -1,7 +1,8 @@
 <template>
   <div>
     <div id="container">
-      <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i * 10 - 10)" />
+      <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i - 1)" />
+      <button id="mute" @click="$emit('mute-click')">Mute</button>
     </div>
   </div>
 </template>
@@ -24,5 +25,10 @@ export default {
   margin: 10px;
   display: flex;
   flex-direction: row;
+  align-content: center;
+}
+#mute {
+  margin: 2px;
+  height: 22px;
 }
 </style>

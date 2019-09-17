@@ -1,9 +1,9 @@
 <template>
   <div>
     <Transport v-on:play-function="playFunction" v-on:stop-function="stopFunction" />
-    <Track v-on:box-click="snareClick" />
-    <Track v-on:box-click="kickClick" />
-    <Track v-on:box-click="hatClick" />
+    <Track v-on:box-click="snareClick" v-on:mute-click="snareMute" />
+    <Track v-on:box-click="kickClick" v-on:mute-click="kickMute" />
+    <Track v-on:box-click="hatClick" v-on:mute-click="hatMute" />
     <Counter v-bind:position="position" />
   </div>
 </template>
@@ -28,25 +28,34 @@ export default {
       snare: new Audio(require("./sounds/snare.mp3")),
       kick: new Audio(require("./sounds/kick.mp3")),
       hat: new Audio(require("./sounds/hi-hat.mp3")),
-      position: 0
+      position: 0,
+      snareMuted: false,
+      kickMuted: false,
+      hatMuted: false
     };
+  },
+  mounted() {
+    for (let n = 0; n < 32; n++) {
+      this.snareList.push(null);
+      this.kickList.push(null);
+      this.hatList.push(null);
+    }
   },
   methods: {
     playFunction() {
       let elapsed = 0;
-      let vm = this;
-      window.loop = setInterval(function() {
-        if (vm.snareList.includes(elapsed)) {
-          vm.snarePlay();
+      window.loop = setInterval(() => {
+        if (this.snareList.includes(elapsed)) {
+          this.snarePlay();
         }
-        if (vm.kickList.includes(elapsed)) {
-          vm.kickPlay();
+        if (this.kickList.includes(elapsed)) {
+          this.kickPlay();
         }
-        if (vm.hatList.includes(elapsed)) {
-          vm.hatPlay();
+        if (this.hatList.includes(elapsed)) {
+          this.hatPlay();
         }
         if (elapsed % 10 == 0) {
-          vm.position = elapsed / 10 + 1;
+          this.position = elapsed / 10 + 1;
         }
         elapsed = elapsed + 1;
         if (elapsed == 321) {
@@ -56,47 +65,57 @@ export default {
     },
     hatPlay() {
       this.hat.currentTime = 0;
-      this.hat.play();
+      this.hatMuted ? null : this.hat.play();
     },
     snarePlay() {
       this.snare.currentTime = 0;
-      this.snare.play();
+      this.snareMuted ? null : this.snare.play();
     },
     kickPlay() {
       this.kick.currentTime = 0;
-      this.kick.play();
+      this.kickMuted ? null : this.kick.play();
     },
     stopFunction() {
       clearInterval(loop);
       this.position = 0;
     },
     snareClick(i) {
-      let vm = this;
-      if (!vm.snareList.includes(i)) {
-        vm.snareList.push(i);
+      if (this.snareList[i] == null) {
+        this.snareList[i] = i * 10;
       } else {
-        vm.snareList = vm.snareList.filter(n => n != i);
+        this.snareList[i] = null;
       }
     },
     kickClick(i) {
-      let vm = this;
-      if (!vm.kickList.includes(i)) {
-        vm.kickList.push(i);
+      if (this.kickList[i] == null) {
+        this.kickList[i] = i * 10;
       } else {
-        vm.kickList = vm.kickList.filter(n => n != i);
+        this.kickList[i] = null;
       }
     },
     hatClick(i) {
-      let vm = this;
-      if (!vm.hatList.includes(i)) {
-        vm.hatList.push(i);
+      if (this.hatList[i] == null) {
+        this.hatList[i] = i * 10;
       } else {
-        vm.hatList = vm.hatList.filter(n => n != i);
+        this.hatList[i] = null;
       }
+    },
+    snareMute() {
+      this.snareMuted = !this.snareMuted;
+    },
+    kickMute() {
+      this.kickMuted = !this.kickMuted;
+    },
+    hatMute() {
+      this.hatMuted = !this.hatMuted;
     }
   }
 };
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
 </style>
