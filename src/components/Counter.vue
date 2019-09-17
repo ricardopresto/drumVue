@@ -24,7 +24,7 @@ export default {
   height: 6px;
   margin: 2px;
   display: inline-block;
-  border: 1px solid black;
+  border: 1px solid slateblue;
 }
 .current {
   background-color: slateblue;
