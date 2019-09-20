@@ -1,9 +1,9 @@
 <template>
   <div>
     <Transport @play-function="playFunction" @stop-function="stopFunction" />
-    <Track @box-click="trackClick($event, track1List)" @mute-click="trackMute(1)" />
-    <Track @box-click="trackClick($event, track2List)" @mute-click="trackMute(2)" />
-    <Track @box-click="trackClick($event, track3List)" @mute-click="trackMute(3)" />
+    <Track @box-click="trackClick($event, track1Array)" @mute-click="trackMute(1)" />
+    <Track @box-click="trackClick($event, track2Array)" @mute-click="trackMute(2)" />
+    <Track @box-click="trackClick($event, track3Array)" @mute-click="trackMute(3)" />
     <Counter :position="position" />
   </div>
 </template>
@@ -22,45 +22,48 @@ export default {
   },
   data() {
     return {
-      track1List: [],
-      track2List: [],
-      track3List: [],
+      track1Array: [],
+      track2Array: [],
+      track3Array: [],
       track1File: new Audio(require("./sounds/snare.mp3")),
       track2File: new Audio(require("./sounds/kick.mp3")),
       track3File: new Audio(require("./sounds/hi-hat.mp3")),
       position: 0,
       mutedTracks: [],
-      loop: null
+      loop: null,
+      speed: 14
     };
   },
   mounted() {
     for (let n = 0; n < 32; n++) {
-      this.track1List.push(null);
-      this.track2List.push(null);
-      this.track3List.push(null);
+      this.track1Array.push(null);
+      this.track2Array.push(null);
+      this.track3Array.push(null);
     }
   },
   methods: {
     playFunction() {
       let elapsed = 0;
       this.loop = setInterval(() => {
-        if (this.track1List.includes(elapsed)) {
+        if (this.track1Array.includes(elapsed)) {
           this.track1Play();
         }
-        if (this.track2List.includes(elapsed)) {
+        if (this.track2Array.includes(elapsed)) {
           this.track2Play();
         }
-        if (this.track3List.includes(elapsed)) {
+        if (this.track3Array.includes(elapsed)) {
           this.track3Play();
         }
         if (elapsed % 10 == 0) {
           this.position = elapsed / 10 + 1;
         }
-        elapsed = elapsed + 1;
+
+        elapsed++;
+
         if (elapsed == 321) {
           elapsed = 0;
         }
-      }, 14);
+      }, this.speed);
     },
 
     stopFunction() {
