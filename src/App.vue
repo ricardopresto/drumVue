@@ -1,9 +1,9 @@
 <template>
   <div>
     <Transport v-on:play-function="playFunction" v-on:stop-function="stopFunction" />
-    <Track v-on:box-click="snareClick" v-on:mute-click="snareMute" />
-    <Track v-on:box-click="kickClick" v-on:mute-click="kickMute" />
-    <Track v-on:box-click="hatClick" v-on:mute-click="hatMute" />
+    <Track v-on:box-click="trackClick($event, snareList)" v-on:mute-click="snareMute" />
+    <Track v-on:box-click="trackClick($event, kickList)" v-on:mute-click="kickMute" />
+    <Track v-on:box-click="trackClick($event, hatList)" v-on:mute-click="hatMute" />
     <Counter v-bind:position="position" />
   </div>
 </template>
@@ -31,7 +31,8 @@ export default {
       position: 0,
       snareMuted: false,
       kickMuted: false,
-      hatMuted: false
+      hatMuted: false,
+      loop: null
     };
   },
   mounted() {
@@ -44,7 +45,7 @@ export default {
   methods: {
     playFunction() {
       let elapsed = 0;
-      window.loop = setInterval(() => {
+      this.loop = setInterval(() => {
         if (this.snareList.includes(elapsed)) {
           this.snarePlay();
         }
@@ -63,6 +64,12 @@ export default {
         }
       }, 14);
     },
+
+    stopFunction() {
+      clearInterval(this.loop);
+      this.position = 0;
+    },
+
     hatPlay() {
       this.hat.currentTime = 0;
       this.hatMuted ? null : this.hat.play();
@@ -75,31 +82,15 @@ export default {
       this.kick.currentTime = 0;
       this.kickMuted ? null : this.kick.play();
     },
-    stopFunction() {
-      clearInterval(loop);
-      this.position = 0;
-    },
-    snareClick(i) {
-      if (this.snareList[i] == null) {
-        this.snareList[i] = i * 10;
+
+    trackClick(index, trackArray) {
+      if (trackArray[index] == null) {
+        trackArray[index] = index * 10;
       } else {
-        this.snareList[i] = null;
+        trackArray[index] = null;
       }
     },
-    kickClick(i) {
-      if (this.kickList[i] == null) {
-        this.kickList[i] = i * 10;
-      } else {
-        this.kickList[i] = null;
-      }
-    },
-    hatClick(i) {
-      if (this.hatList[i] == null) {
-        this.hatList[i] = i * 10;
-      } else {
-        this.hatList[i] = null;
-      }
-    },
+
     snareMute() {
       this.snareMuted = !this.snareMuted;
     },
