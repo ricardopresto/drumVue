@@ -1,9 +1,9 @@
 <template>
   <div>
     <Transport @play-function="playFunction" @stop-function="stopFunction" />
-    <Track @box-click="trackClick($event, track1List)" @mute-click="track1Mute" />
-    <Track @box-click="trackClick($event, track2List)" @mute-click="track2Mute" />
-    <Track @box-click="trackClick($event, track3List)" @mute-click="track3Mute" />
+    <Track @box-click="trackClick($event, track1List)" @mute-click="trackMute(1)" />
+    <Track @box-click="trackClick($event, track2List)" @mute-click="trackMute(2)" />
+    <Track @box-click="trackClick($event, track3List)" @mute-click="trackMute(3)" />
     <Counter :position="position" />
   </div>
 </template>
@@ -29,9 +29,7 @@ export default {
       track2File: new Audio(require("./sounds/kick.mp3")),
       track3File: new Audio(require("./sounds/hi-hat.mp3")),
       position: 0,
-      track1Muted: false,
-      track2Muted: false,
-      track3Muted: false,
+      mutedTracks: [],
       loop: null
     };
   },
@@ -72,15 +70,15 @@ export default {
 
     track1Play() {
       this.track1File.currentTime = 0;
-      this.track1Muted ? null : this.track1File.play();
+      this.mutedTracks.includes(1) ? null : this.track1File.play();
     },
     track2Play() {
       this.track2File.currentTime = 0;
-      this.track2Muted ? null : this.track2File.play();
+      this.mutedTracks.includes(2) ? null : this.track2File.play();
     },
     track3Play() {
       this.track3File.currentTime = 0;
-      this.track3Muted ? null : this.track3File.play();
+      this.mutedTracks.includes(3) ? null : this.track3File.play();
     },
 
     trackClick(index, trackArray) {
@@ -91,14 +89,12 @@ export default {
       }
     },
 
-    track1Mute() {
-      this.track1Muted = !this.track1Muted;
-    },
-    track2Mute() {
-      this.track2Muted = !this.track2Muted;
-    },
-    track3Mute() {
-      this.track3Muted = !this.track3Muted;
+    trackMute(m) {
+      if (this.mutedTracks.includes(m)) {
+        this.mutedTracks = this.mutedTracks.filter(i => i != m);
+      } else {
+        this.mutedTracks.push(m);
+      }
     }
   }
 };
