@@ -2,7 +2,7 @@
   <div>
     <div id="container">
       <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i - 1)" />
-      <button id="mute" @click="$emit('mute-click')">Mute</button>
+      <button id="mute" @click="muteClick" :class="{ muted: muted }">Mute</button>
     </div>
   </div>
 </template>
@@ -14,6 +14,17 @@ export default {
   name: "Track",
   components: {
     Beat
+  },
+  data() {
+    return {
+      muted: false
+    };
+  },
+  methods: {
+    muteClick() {
+      this.$emit("mute-click");
+      this.muted = !this.muted;
+    }
   }
 };
 </script>
@@ -30,5 +41,9 @@ export default {
 #mute {
   margin: 2px;
   height: 22px;
+}
+
+.muted {
+  background-color: red;
 }
 </style>

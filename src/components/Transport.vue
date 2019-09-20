@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button v-on:click="$emit('play-function')">Play</button>
-    <button v-on:click="$emit('stop-function')">Stop</button>
+    <button @click="$emit('play-function')">Play</button>
+    <button @click="$emit('stop-function')">Stop</button>
   </div>
 </template>
 

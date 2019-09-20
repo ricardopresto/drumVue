@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="box" v-on:click="boxClick" v-bind:class="{ select: selected}"></div>
+    <div id="box" @click="boxClick" :class="{ select: selected}"></div>
   </div>
 </template>
 

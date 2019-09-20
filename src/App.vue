@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Transport v-on:play-function="playFunction" v-on:stop-function="stopFunction" />
-    <Track v-on:box-click="trackClick($event, snareList)" v-on:mute-click="snareMute" />
-    <Track v-on:box-click="trackClick($event, kickList)" v-on:mute-click="kickMute" />
-    <Track v-on:box-click="trackClick($event, hatList)" v-on:mute-click="hatMute" />
-    <Counter v-bind:position="position" />
+    <Transport @play-function="playFunction" @stop-function="stopFunction" />
+    <Track @box-click="trackClick($event, track1List)" @mute-click="track1Mute" />
+    <Track @box-click="trackClick($event, track2List)" @mute-click="track2Mute" />
+    <Track @box-click="trackClick($event, track3List)" @mute-click="track3Mute" />
+    <Counter :position="position" />
   </div>
 </template>
 
@@ -22,38 +22,38 @@ export default {
   },
   data() {
     return {
-      snareList: [],
-      kickList: [],
-      hatList: [],
-      snare: new Audio(require("./sounds/snare.mp3")),
-      kick: new Audio(require("./sounds/kick.mp3")),
-      hat: new Audio(require("./sounds/hi-hat.mp3")),
+      track1List: [],
+      track2List: [],
+      track3List: [],
+      track1File: new Audio(require("./sounds/snare.mp3")),
+      track2File: new Audio(require("./sounds/kick.mp3")),
+      track3File: new Audio(require("./sounds/hi-hat.mp3")),
       position: 0,
-      snareMuted: false,
-      kickMuted: false,
-      hatMuted: false,
+      track1Muted: false,
+      track2Muted: false,
+      track3Muted: false,
       loop: null
     };
   },
   mounted() {
     for (let n = 0; n < 32; n++) {
-      this.snareList.push(null);
-      this.kickList.push(null);
-      this.hatList.push(null);
+      this.track1List.push(null);
+      this.track2List.push(null);
+      this.track3List.push(null);
     }
   },
   methods: {
     playFunction() {
       let elapsed = 0;
       this.loop = setInterval(() => {
-        if (this.snareList.includes(elapsed)) {
-          this.snarePlay();
+        if (this.track1List.includes(elapsed)) {
+          this.track1Play();
         }
-        if (this.kickList.includes(elapsed)) {
-          this.kickPlay();
+        if (this.track2List.includes(elapsed)) {
+          this.track2Play();
         }
-        if (this.hatList.includes(elapsed)) {
-          this.hatPlay();
+        if (this.track3List.includes(elapsed)) {
+          this.track3Play();
         }
         if (elapsed % 10 == 0) {
           this.position = elapsed / 10 + 1;
@@ -70,17 +70,17 @@ export default {
       this.position = 0;
     },
 
-    hatPlay() {
-      this.hat.currentTime = 0;
-      this.hatMuted ? null : this.hat.play();
+    track1Play() {
+      this.track1File.currentTime = 0;
+      this.track1Muted ? null : this.track1File.play();
     },
-    snarePlay() {
-      this.snare.currentTime = 0;
-      this.snareMuted ? null : this.snare.play();
+    track2Play() {
+      this.track2File.currentTime = 0;
+      this.track2Muted ? null : this.track2File.play();
     },
-    kickPlay() {
-      this.kick.currentTime = 0;
-      this.kickMuted ? null : this.kick.play();
+    track3Play() {
+      this.track3File.currentTime = 0;
+      this.track3Muted ? null : this.track3File.play();
     },
 
     trackClick(index, trackArray) {
@@ -91,14 +91,14 @@ export default {
       }
     },
 
-    snareMute() {
-      this.snareMuted = !this.snareMuted;
+    track1Mute() {
+      this.track1Muted = !this.track1Muted;
     },
-    kickMute() {
-      this.kickMuted = !this.kickMuted;
+    track2Mute() {
+      this.track2Muted = !this.track2Muted;
     },
-    hatMute() {
-      this.hatMuted = !this.hatMuted;
+    track3Mute() {
+      this.track3Muted = !this.track3Muted;
     }
   }
 };
