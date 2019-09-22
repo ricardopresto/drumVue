@@ -3,7 +3,7 @@
     <div id="container">
       <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i - 1)" />
       <button id="mute" @click="muteClick" :class="{ muted: muted }">Mute</button>
-      <button id="edit" @click="editClick" :class="{ editing: editing }">Edit</button>
+      <button id="edit" @click="editClick">Edit</button>
     </div>
   </div>
 </template>

@@ -17,7 +17,7 @@
       @edit-click="editTrack(3)"
     />
     <Counter :position="position" />
-    <Edit :track1Volume="track1Volume" :currentTrack="currentTrack" />
+    <Edit :volumeArrays="volumeArrays" :currentTrack="currentTrack" />
   </div>
 </template>
 
@@ -37,8 +37,8 @@ export default {
   },
   data() {
     return {
+      volumeArrays: [[], [], []],
       track1Array: [],
-      track1Volume: [],
       track2Array: [],
       track3Array: [],
       track1File: new Audio(require("./sounds/snare.mp3")),
@@ -57,7 +57,9 @@ export default {
       this.track1Array.push(null);
       this.track2Array.push(null);
       this.track3Array.push(null);
-      this.track1Volume.push(80);
+      this.volumeArrays[0].push(80);
+      this.volumeArrays[1].push(80);
+      this.volumeArrays[2].push(80);
     }
   },
   methods: {
@@ -97,15 +99,19 @@ export default {
 
     track1Play() {
       this.track1File.currentTime = 0;
-      this.track1File.volume = this.track1Volume[this.position] / 100;
+      this.track1File.volume = this.volumeArrays[0][this.position] / 100;
       this.mutedTracks.includes(1) ? null : this.track1File.play();
     },
     track2Play() {
       this.track2File.currentTime = 0;
+      this.track2File.volume = this.volumeArrays[1][this.position] / 100;
+
       this.mutedTracks.includes(2) ? null : this.track2File.play();
     },
     track3Play() {
       this.track3File.currentTime = 0;
+      this.track3File.volume = this.volumeArrays[2][this.position] / 100;
+
       this.mutedTracks.includes(3) ? null : this.track3File.play();
     },
 
@@ -126,7 +132,6 @@ export default {
     },
     editTrack(e) {
       this.currentTrack = e;
-      console.log(e);
     }
   }
 };

@@ -4,7 +4,7 @@
       <CustomBox
         class="edit-box"
         @volume-change="volChange($event, i)"
-        :initialVol="track1Volume[i - 1]"
+        :initialVol="volumeArrays[currentTrack - 1][i - 1]"
       />
     </div>
   </div>
@@ -17,10 +17,15 @@ export default {
   components: {
     CustomBox
   },
-  props: ["track1Volume", "currentTrack"],
+  props: ["volumeArrays", "currentTrack"],
+  watch: {
+    currentTrack() {
+      console.log("Current track", this.currentTrack);
+    }
+  },
   methods: {
     volChange(volume, index) {
-      this.track1Volume[index - 1] = Number(volume);
+      this.volumeArrays[this.currentTrack - 1][index - 1] = Number(volume);
     }
   }
 };
