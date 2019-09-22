@@ -17,7 +17,7 @@ export default {
   components: {
     CustomBox
   },
-  props: ["track1Volume"],
+  props: ["track1Volume", "currentTrack"],
   methods: {
     volChange(volume, index) {
       this.track1Volume[index - 1] = Number(volume);

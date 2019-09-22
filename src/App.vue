@@ -1,11 +1,23 @@
 <template>
   <div>
     <Transport @play-function="playFunction" @stop-function="stopFunction" />
-    <Track @box-click="trackClick($event, track1Array)" @mute-click="trackMute(1)" />
-    <Track @box-click="trackClick($event, track2Array)" @mute-click="trackMute(2)" />
-    <Track @box-click="trackClick($event, track3Array)" @mute-click="trackMute(3)" />
+    <Track
+      @box-click="trackClick($event, track1Array)"
+      @mute-click="trackMute(1)"
+      @edit-click="editTrack(1)"
+    />
+    <Track
+      @box-click="trackClick($event, track2Array)"
+      @mute-click="trackMute(2)"
+      @edit-click="editTrack(2)"
+    />
+    <Track
+      @box-click="trackClick($event, track3Array)"
+      @mute-click="trackMute(3)"
+      @edit-click="editTrack(3)"
+    />
     <Counter :position="position" />
-    <Edit :track1Volume="track1Volume" :track1Array="track1Array" />
+    <Edit :track1Volume="track1Volume" :currentTrack="currentTrack" />
   </div>
 </template>
 
@@ -36,7 +48,8 @@ export default {
       mutedTracks: [],
       loop: null,
       speed: 14,
-      playing: false
+      playing: false,
+      currentTrack: 1
     };
   },
   mounted() {
@@ -110,6 +123,10 @@ export default {
       } else {
         this.mutedTracks.push(m);
       }
+    },
+    editTrack(e) {
+      this.currentTrack = e;
+      console.log(e);
     }
   }
 };

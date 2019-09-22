@@ -3,6 +3,7 @@
     <div id="container">
       <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i - 1)" />
       <button id="mute" @click="muteClick" :class="{ muted: muted }">Mute</button>
+      <button id="edit" @click="editClick" :class="{ editing: editing }">Edit</button>
     </div>
   </div>
 </template>
@@ -17,13 +18,18 @@ export default {
   },
   data() {
     return {
-      muted: false
+      muted: false,
+      editing: false
     };
   },
   methods: {
     muteClick() {
       this.$emit("mute-click");
       this.muted = !this.muted;
+    },
+    editClick() {
+      this.$emit("edit-click");
+      this.editing = !this.editing;
     }
   }
 };
@@ -38,12 +44,16 @@ export default {
   flex-direction: row;
   align-content: center;
 }
-#mute {
+button {
   margin: 2px;
   height: 22px;
 }
 
 .muted {
   background-color: red;
+}
+
+.editing {
+  background-color: slateblue;
 }
 </style>
