@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <div id="box" v-for="i in 32" :key="i" :class="{ current: i == position}" />
+    <div id="box" v-for="i in 32" :key="i" :class="{ current: i == position + 1}" />
   </div>
 </template>
 
