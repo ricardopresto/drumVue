@@ -9,9 +9,13 @@
 <script>
 export default {
   name: "CustomBox",
-  props: ["initialVol"],
+  props: {
+    initialVol: Number
+  },
   mounted() {
-    this.$refs.inner.style.height = `${this.initialVol}px`;
+    this.$nextTick(() => {
+      this.$refs.inner.style.height = `${this.initialVol}px`;
+    });
   },
   methods: {
     volumeClick(e) {
