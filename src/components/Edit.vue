@@ -1,21 +1,26 @@
 <template>
   <div id="container">
-    <EditBox class="edit-box" v-for="i in 33" :key="i" @volume-change="volChange($event, i)" />
+    <div v-for="i in 32" :key="i">
+      <CustomBox
+        class="edit-box"
+        @volume-change="volChange($event, i)"
+        :initialVol="track1Volume[i - 1]"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import EditBox from "./EditBox.vue";
+import CustomBox from "./CustomBox";
 export default {
   name: "Edit",
   components: {
-    EditBox
+    CustomBox
   },
   props: ["track1Volume"],
   methods: {
     volChange(volume, index) {
       this.track1Volume[index - 1] = Number(volume);
-      console.log(this.track1Volume);
     }
   }
 };
@@ -26,5 +31,6 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
+  margin: 10px;
 }
 </style>

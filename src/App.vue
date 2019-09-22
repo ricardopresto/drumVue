@@ -5,7 +5,7 @@
     <Track @box-click="trackClick($event, track2Array)" @mute-click="trackMute(2)" />
     <Track @box-click="trackClick($event, track3Array)" @mute-click="trackMute(3)" />
     <Counter :position="position" />
-    <Edit :track1Volume="track1Volume" />
+    <Edit :track1Volume="track1Volume" :track1Array="track1Array" />
   </div>
 </template>
 
