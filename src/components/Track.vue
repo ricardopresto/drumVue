@@ -1,7 +1,11 @@
 <template>
   <div>
     <div id="container">
-      <Beat v-for="i in 32" :key="i" @box-clicked="$emit('box-click', i - 1)" />
+      <Beat
+        v-for="beat in trackArray"
+        :key="beat.index"
+        @box-clicked="$emit('box-click', beat.index)"
+      />
       <button id="mute" @click="muteClick" :class="{ muted: muted }">Mute</button>
       <button id="edit" @click="editClick">Edit</button>
     </div>
@@ -22,6 +26,7 @@ export default {
       editing: false
     };
   },
+  props: ["trackArray"],
   methods: {
     muteClick() {
       this.$emit("mute-click");

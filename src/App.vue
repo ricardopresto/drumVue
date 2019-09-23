@@ -2,19 +2,22 @@
   <div>
     <Transport @play-function="playFunction" @stop-function="stopFunction" />
     <Track
-      @box-click="trackClick($event, track1Array)"
+      @box-click="trackClick($event, trackArrays[0])"
       @mute-click="trackMute(1)"
       @edit-click="editTrack(1)"
+      :trackArray="trackArrays[0]"
     />
     <Track
-      @box-click="trackClick($event, track2Array)"
+      @box-click="trackClick($event, trackArrays[1])"
       @mute-click="trackMute(2)"
       @edit-click="editTrack(2)"
+      :trackArray="trackArrays[1]"
     />
     <Track
-      @box-click="trackClick($event, track3Array)"
+      @box-click="trackClick($event, trackArrays[2])"
       @mute-click="trackMute(3)"
       @edit-click="editTrack(3)"
+      :trackArray="trackArrays[2]"
     />
     <Counter :position="position" />
     <Edit :volumeArrays="volumeArrays" :currentTrack="currentTrack" />
@@ -38,6 +41,8 @@ export default {
   data() {
     return {
       volumeArrays: [[], [], []],
+
+      trackArrays: [[], [], []],
       track1Array: [],
       track2Array: [],
       track3Array: [],
@@ -53,10 +58,15 @@ export default {
     };
   },
   mounted() {
+    class Beat {
+      constructor(time, volume, index) {
+        (this.time = time), (this.volume = volume), (this.index = index);
+      }
+    }
     for (let n = 0; n < 32; n++) {
-      this.track1Array.push(null);
-      this.track2Array.push(null);
-      this.track3Array.push(null);
+      this.trackArrays[0].push(new Beat(null, 80, n));
+      this.trackArrays[1].push(new Beat(null, 80, n));
+      this.trackArrays[2].push(new Beat(null, 80, n));
       this.volumeArrays[0].push(80);
       this.volumeArrays[1].push(80);
       this.volumeArrays[2].push(80);
@@ -70,15 +80,21 @@ export default {
           if (elapsed % 10 == 0) {
             this.position = elapsed / 10;
           }
-          if (this.track1Array.includes(elapsed)) {
-            this.track1Play();
-          }
-          if (this.track2Array.includes(elapsed)) {
-            this.track2Play();
-          }
-          if (this.track3Array.includes(elapsed)) {
-            this.track3Play();
-          }
+          this.trackArrays[0].forEach(beat => {
+            if (beat.time == elapsed) {
+              this.track1Play();
+            }
+          });
+          this.trackArrays[1].forEach(beat => {
+            if (beat.time == elapsed) {
+              this.track2Play();
+            }
+          });
+          this.trackArrays[2].forEach(beat => {
+            if (beat.time == elapsed) {
+              this.track3Play();
+            }
+          });
 
           elapsed++;
 
@@ -116,10 +132,10 @@ export default {
     },
 
     trackClick(index, trackArray) {
-      if (trackArray[index] == null) {
-        trackArray[index] = index * 10;
+      if (trackArray[index].time == null) {
+        trackArray[index].time = index * 10;
       } else {
-        trackArray[index] = null;
+        trackArray[index].time = null;
       }
     },
 
