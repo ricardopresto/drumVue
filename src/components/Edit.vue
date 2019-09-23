@@ -1,10 +1,10 @@
 <template>
   <div id="container">
-    <div v-for="i in 32" :key="i">
+    <div v-for="beat in trackArrays[currentTrack]" :key="beat.index">
       <CustomBox
         class="edit-box"
-        @volume-change="volChange($event, i)"
-        :initialVol="volumeArrays[currentTrack - 1][i - 1]"
+        @volume-change="volChange($event, beat.index)"
+        :initialVol="beat.volume"
       />
     </div>
   </div>
@@ -17,7 +17,7 @@ export default {
   components: {
     CustomBox
   },
-  props: ["volumeArrays", "currentTrack"],
+  props: ["currentTrack", "trackArrays"],
   watch: {
     currentTrack() {
       console.log("Current track", this.currentTrack);
@@ -25,7 +25,11 @@ export default {
   },
   methods: {
     volChange(volume, index) {
-      this.volumeArrays[this.currentTrack - 1][index - 1] = Number(volume);
+      this.trackArrays[this.currentTrack].forEach(beat => {
+        if (beat.index == index) {
+          beat.volume = volume;
+        }
+      });
     }
   }
 };

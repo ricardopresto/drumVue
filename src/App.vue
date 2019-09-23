@@ -20,7 +20,7 @@
       :trackArray="trackArrays[2]"
     />
     <Counter :position="position" />
-    <Edit :volumeArrays="volumeArrays" :currentTrack="currentTrack" />
+    <Edit :currentTrack="currentTrack" :trackArrays="trackArrays" />
   </div>
 </template>
 
@@ -40,12 +40,7 @@ export default {
   },
   data() {
     return {
-      volumeArrays: [[], [], []],
-
       trackArrays: [[], [], []],
-      track1Array: [],
-      track2Array: [],
-      track3Array: [],
       track1File: new Audio(require("./sounds/snare.mp3")),
       track2File: new Audio(require("./sounds/kick.mp3")),
       track3File: new Audio(require("./sounds/hi-hat.mp3")),
@@ -54,7 +49,7 @@ export default {
       loop: null,
       speed: 14,
       playing: false,
-      currentTrack: 1
+      currentTrack: 0
     };
   },
   mounted() {
@@ -67,9 +62,6 @@ export default {
       this.trackArrays[0].push(new Beat(null, 80, n));
       this.trackArrays[1].push(new Beat(null, 80, n));
       this.trackArrays[2].push(new Beat(null, 80, n));
-      this.volumeArrays[0].push(80);
-      this.volumeArrays[1].push(80);
-      this.volumeArrays[2].push(80);
     }
   },
   methods: {
@@ -82,17 +74,17 @@ export default {
           }
           this.trackArrays[0].forEach(beat => {
             if (beat.time == elapsed) {
-              this.track1Play();
+              this.track1Play(beat.volume);
             }
           });
           this.trackArrays[1].forEach(beat => {
             if (beat.time == elapsed) {
-              this.track2Play();
+              this.track2Play(beat.volume);
             }
           });
           this.trackArrays[2].forEach(beat => {
             if (beat.time == elapsed) {
-              this.track3Play();
+              this.track3Play(beat.volume);
             }
           });
 
@@ -113,21 +105,19 @@ export default {
       this.playing = false;
     },
 
-    track1Play() {
+    track1Play(vol) {
       this.track1File.currentTime = 0;
-      this.track1File.volume = this.volumeArrays[0][this.position] / 100;
+      this.track1File.volume = vol / 100;
       this.mutedTracks.includes(1) ? null : this.track1File.play();
     },
-    track2Play() {
+    track2Play(vol) {
       this.track2File.currentTime = 0;
-      this.track2File.volume = this.volumeArrays[1][this.position] / 100;
-
+      this.track2File.volume = vol / 100;
       this.mutedTracks.includes(2) ? null : this.track2File.play();
     },
-    track3Play() {
+    track3Play(vol) {
       this.track3File.currentTime = 0;
-      this.track3File.volume = this.volumeArrays[2][this.position] / 100;
-
+      this.track3File.volume = vol / 100;
       this.mutedTracks.includes(3) ? null : this.track3File.play();
     },
 
@@ -147,7 +137,7 @@ export default {
       }
     },
     editTrack(e) {
-      this.currentTrack = e;
+      this.currentTrack = e - 1;
     }
   }
 };
