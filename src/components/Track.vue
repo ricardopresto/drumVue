@@ -22,8 +22,7 @@ export default {
   },
   data() {
     return {
-      muted: false,
-      editing: false
+      muted: false
     };
   },
   props: ["trackArray"],
@@ -34,7 +33,6 @@ export default {
     },
     editClick() {
       this.$emit("edit-click");
-      this.editing = !this.editing;
     }
   }
 };

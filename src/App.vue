@@ -20,7 +20,11 @@
       :trackArray="trackArrays[2]"
     />
     <Counter :position="position" />
-    <Edit :currentTrack="currentTrack" :trackArrays="trackArrays" />
+    <Edit
+      v-if="editing"
+      :currentTrack="trackArrays[currentTrackNumber]"
+      @volume-change="volChange($event)"
+    />
   </div>
 </template>
 
@@ -49,7 +53,8 @@ export default {
       loop: null,
       speed: 14,
       playing: false,
-      currentTrack: 0
+      currentTrackNumber: 0,
+      editing: false
     };
   },
   mounted() {
@@ -137,7 +142,16 @@ export default {
       }
     },
     editTrack(e) {
-      this.currentTrack = e - 1;
+      this.editing = false;
+      this.currentTrackNumber = e - 1;
+      this.editing = true;
+    },
+    volChange(volumeObject) {
+      this.trackArrays[this.currentTrackNumber].forEach(beat => {
+        if (beat.index == volumeObject.index) {
+          beat.volume = volumeObject.volume;
+        }
+      });
     }
   }
 };
