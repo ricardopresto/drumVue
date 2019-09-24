@@ -33,6 +33,9 @@ export default {
     },
     editClick() {
       this.$emit("edit-click");
+    },
+    noEditClick() {
+      this.$emit("no-edit-click");
     }
   }
 };

@@ -144,7 +144,9 @@ export default {
     editTrack(e) {
       this.editing = false;
       this.currentTrackNumber = e - 1;
-      this.editing = true;
+      this.$nextTick(() => {
+        this.editing = true;
+      });
     },
     volChange(volumeObject) {
       this.trackArrays[this.currentTrackNumber].forEach(beat => {

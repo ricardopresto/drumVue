@@ -17,12 +17,7 @@ export default {
   components: {
     CustomBox
   },
-  props: ["currentTrack"],
-  watch: {
-    currentTrack() {
-      console.log(this.currentTrack);
-    }
-  }
+  props: ["currentTrack"]
 };
 </script>
 
