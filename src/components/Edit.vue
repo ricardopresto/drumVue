@@ -6,6 +6,7 @@
       class="edit-box"
       @volume-change="$emit('volume-change', {volume: $event, index: beat.index})"
       :volume="beat.volume"
+      :class="{ hidden: beat.time == null }"
     />
   </div>
 </template>
@@ -27,5 +28,8 @@ export default {
   flex-direction: row;
   width: 100%;
   margin: 10px;
+}
+.hidden {
+  visibility: hidden;
 }
 </style>
