@@ -2,7 +2,7 @@
   <div id="container">
     <CustomBox
       v-for="beat in currentTrack"
-      :key="beat.index"
+      :key="String(currentTrackNumber) + '.' + String(beat.index)"
       class="edit-box"
       @volume-change="$emit('volume-change', {volume: $event, index: beat.index})"
       :volume="beat.volume"
@@ -18,7 +18,7 @@ export default {
   components: {
     CustomBox
   },
-  props: ["currentTrack"]
+  props: ["currentTrack", "currentTrackNumber"]
 };
 </script>
 
