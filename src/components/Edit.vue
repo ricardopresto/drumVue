@@ -1,10 +1,11 @@
 <template>
   <div id="container">
-    <CustomBox
+    <EditBox
       v-for="beat in currentTrack"
       :key="String(currentTrackNumber) + '.' + String(beat.index)"
       class="edit-box"
       @volume-change="$emit('volume-change', {volume: $event, index: beat.index})"
+      @time-change="$emit('time-change', {time: $event, index: beat.index})"
       :volume="beat.volume"
       :class="{ hidden: beat.time == null }"
     />
@@ -12,11 +13,11 @@
 </template>
 
 <script>
-import CustomBox from "./CustomBox";
+import EditBox from "./EditBox";
 export default {
   name: "Edit",
   components: {
-    CustomBox
+    EditBox
   },
   props: ["currentTrack", "currentTrackNumber"]
 };

@@ -24,6 +24,7 @@
       :currentTrack="trackArrays[currentTrackNumber]"
       :currentTrackNumber="currentTrackNumber"
       @volume-change="volChange($event)"
+      @time-change="timeChange($event)"
     />
   </div>
 </template>
@@ -147,6 +148,13 @@ export default {
       this.trackArrays[this.currentTrackNumber].forEach(beat => {
         if (beat.index == volumeObject.index) {
           beat.volume = volumeObject.volume;
+        }
+      });
+    },
+    timeChange(timeObject) {
+      this.trackArrays[this.currentTrackNumber].forEach(beat => {
+        if (beat.index == timeObject.index) {
+          beat.time = beat.time + timeObject.time;
         }
       });
     }
