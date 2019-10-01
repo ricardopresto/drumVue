@@ -95,7 +95,7 @@ export default {
 
           elapsed++;
 
-          if (elapsed == 321) {
+          if (elapsed == 320) {
             elapsed = 0;
             this.position = 0;
           }
@@ -155,6 +155,12 @@ export default {
       this.trackArrays[this.currentTrackNumber].forEach(beat => {
         if (beat.index == timeObject.index) {
           beat.time = beat.time + timeObject.time;
+          if (beat.time == -1) {
+            beat.time = 319;
+          }
+          if (beat.time == 320) {
+            beat.time = 0;
+          }
         }
       });
     }
