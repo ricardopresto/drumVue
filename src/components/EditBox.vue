@@ -51,12 +51,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid red;
+  width: 20px;
+  margin: 3px;
 }
 #volumeOuter {
   width: 20px;
   height: 100px;
-  margin: 1px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -70,7 +70,7 @@ export default {
   height: 20px;
   width: 20px;
   border-radius: 4px;
-  margin: 1px 0;
+  margin: 2px 0;
   text-align: center;
   cursor: default;
   background-color: royalblue;
