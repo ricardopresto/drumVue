@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Transport @play-function="playFunction" @stop-function="stopFunction" />
+    <Controls
+      @play-function="playFunction"
+      @stop-function="stopFunction"
+      @reset-function="resetFunction"
+    />
     <Track
       @box-click="trackClick($event, trackArrays[0])"
       @mute-click="trackMute(0)"
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-import Transport from "./components/Transport.vue";
+import Controls from "./components/Controls.vue";
 import Track from "./components/Track.vue";
 import Counter from "./components/Counter.vue";
 import Edit from "./components/Edit.vue";
@@ -38,7 +42,7 @@ import Edit from "./components/Edit.vue";
 export default {
   name: "App",
   components: {
-    Transport,
+    Controls,
     Track,
     Counter,
     Edit
@@ -63,10 +67,10 @@ export default {
         (this.time = time), (this.volume = volume), (this.index = index);
       }
     }
-    for (let n = 0; n < 32; n++) {
-      this.trackArrays[0].push(new Beat(null, 80, n));
-      this.trackArrays[1].push(new Beat(null, 80, n));
-      this.trackArrays[2].push(new Beat(null, 80, n));
+    for (let arr = 0; arr < 3; arr++) {
+      for (let n = 0; n < 32; n++) {
+        this.trackArrays[arr].push(new Beat(null, 80, n));
+      }
     }
   },
   methods: {
@@ -163,6 +167,14 @@ export default {
           }
         }
       });
+    },
+    resetFunction() {
+      for (let arr = 0; arr < 3; arr++) {
+        for (let n = 0; n < 32; n++) {
+          this.trackArrays[arr][n].time = null;
+          this.trackArrays[arr][n].volume = 80;
+        }
+      }
     }
   }
 };
