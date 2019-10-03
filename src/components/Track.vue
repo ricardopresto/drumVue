@@ -1,11 +1,13 @@
 <template>
   <div>
     <div id="container">
-      <Beat
+      <div
         v-for="beat in trackArray"
         :key="beat.index"
-        @box-clicked="$emit('box-click', beat.index)"
-      />
+        @click="$emit('box-click', beat.index)"
+        class="box"
+        :class="{ select: beat.time != null }"
+      ></div>
       <button id="mute" @click="muteClick" :class="{ muted: muted }">Mute</button>
       <button id="edit" @click="editClick">Edit</button>
     </div>
@@ -13,13 +15,8 @@
 </template>
 
 <script>
-import Beat from "./Beat.vue";
-
 export default {
   name: "Track",
-  components: {
-    Beat
-  },
   data() {
     return {
       muted: false
@@ -47,16 +44,24 @@ export default {
   flex-direction: row;
   align-content: center;
 }
+.box {
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  display: inline-block;
+  border: 1px solid black;
+}
 button {
   margin: 2px;
   height: 22px;
 }
-
 .muted {
   background-color: red;
 }
-
 .editing {
   background-color: slateblue;
+}
+.select {
+  background-color: blue;
 }
 </style>

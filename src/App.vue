@@ -3,20 +3,20 @@
     <Transport @play-function="playFunction" @stop-function="stopFunction" />
     <Track
       @box-click="trackClick($event, trackArrays[0])"
-      @mute-click="trackMute(1)"
-      @edit-click="editTrack(1)"
+      @mute-click="trackMute(0)"
+      @edit-click="editTrack(0)"
       :trackArray="trackArrays[0]"
     />
     <Track
       @box-click="trackClick($event, trackArrays[1])"
-      @mute-click="trackMute(2)"
-      @edit-click="editTrack(2)"
+      @mute-click="trackMute(1)"
+      @edit-click="editTrack(1)"
       :trackArray="trackArrays[1]"
     />
     <Track
       @box-click="trackClick($event, trackArrays[2])"
-      @mute-click="trackMute(3)"
-      @edit-click="editTrack(3)"
+      @mute-click="trackMute(2)"
+      @edit-click="editTrack(2)"
       :trackArray="trackArrays[2]"
     />
     <Counter :position="position" />
@@ -46,9 +46,9 @@ export default {
   data() {
     return {
       trackArrays: [[], [], []],
-      track1File: new Audio(require("./sounds/snare.mp3")),
-      track2File: new Audio(require("./sounds/kick.mp3")),
-      track3File: new Audio(require("./sounds/hi-hat.mp3")),
+      track0File: new Audio(require("./sounds/snare.mp3")),
+      track1File: new Audio(require("./sounds/kick.mp3")),
+      track2File: new Audio(require("./sounds/hi-hat.mp3")),
       position: 0,
       mutedTracks: [],
       loop: null,
@@ -111,19 +111,19 @@ export default {
     },
 
     track1Play(vol) {
+      this.track0File.currentTime = 0;
+      this.track0File.volume = vol / 100;
+      this.mutedTracks.includes(0) ? null : this.track0File.play();
+    },
+    track2Play(vol) {
       this.track1File.currentTime = 0;
       this.track1File.volume = vol / 100;
       this.mutedTracks.includes(1) ? null : this.track1File.play();
     },
-    track2Play(vol) {
+    track3Play(vol) {
       this.track2File.currentTime = 0;
       this.track2File.volume = vol / 100;
       this.mutedTracks.includes(2) ? null : this.track2File.play();
-    },
-    track3Play(vol) {
-      this.track3File.currentTime = 0;
-      this.track3File.volume = vol / 100;
-      this.mutedTracks.includes(3) ? null : this.track3File.play();
     },
 
     trackClick(index, trackArray) {
@@ -142,7 +142,7 @@ export default {
       }
     },
     editTrack(e) {
-      this.currentTrackNumber = e - 1;
+      this.currentTrackNumber = e;
     },
     volChange(volumeObject) {
       this.trackArrays[this.currentTrackNumber].forEach(beat => {
