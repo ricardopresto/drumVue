@@ -39,12 +39,13 @@ export default {
   },
   data() {
     return {
-      totalTracks: 3,
+      totalTracks: 4,
       trackArrays: [],
       audioFiles: [
         new Audio(require("./sounds/snare.mp3")),
         new Audio(require("./sounds/kick.mp3")),
-        new Audio(require("./sounds/hi-hat.mp3"))
+        new Audio(require("./sounds/hat-closed.mp3")),
+        new Audio(require("./sounds/hat-open.mp3"))
       ],
       position: 0,
       mutedTracks: [],
