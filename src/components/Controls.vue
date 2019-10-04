@@ -14,7 +14,7 @@
         <polygon points="5 3 19 12 5 21 5 3" />
       </svg>
     </button>
-    <button @click="$emit('pause-function')">
+    <button @click="$emit('pause-function')" :class="{paused: paused}">
       <svg
         width="40"
         height="40"
@@ -62,7 +62,8 @@
 
 <script>
 export default {
-  name: "Controls"
+  name: "Controls",
+  props: ["paused"]
 };
 </script>
 
@@ -71,5 +72,8 @@ button {
   width: 100px;
   height: 60px;
   margin: 10px;
+}
+.paused {
+  background-color: lightslategrey;
 }
 </style>

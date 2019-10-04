@@ -5,6 +5,7 @@
       @pause-function="pauseFunction"
       @stop-function="stopFunction"
       @reset-function="resetFunction"
+      :paused="paused"
     />
     <Track
       v-for="(n, track) in totalTracks"
@@ -100,7 +101,9 @@ export default {
       this.playing = true;
     },
     pauseFunction() {
-      this.paused = !this.paused;
+      if (this.playing) {
+        this.paused = !this.paused;
+      }
     },
     stopFunction() {
       clearInterval(this.loop);
