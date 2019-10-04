@@ -16,7 +16,7 @@
       :trackName="trackNames[track]"
       :class="{selected: currentTrackNumber == track}"
     />
-    <Counter :position="position" />
+    <Counter :position="position" :length="length" />
     <Edit
       :currentTrack="trackArrays[currentTrackNumber]"
       :currentTrackNumber="currentTrackNumber"
@@ -51,6 +51,7 @@ export default {
         new Audio(require("./sounds/hat-closed.mp3")),
         new Audio(require("./sounds/hat-open.mp3"))
       ],
+      length: 32,
       position: 0,
       mutedTracks: [],
       loop: null,
@@ -68,7 +69,7 @@ export default {
     }
     for (let arr = 0; arr < this.totalTracks; arr++) {
       this.trackArrays.push([]);
-      for (let n = 0; n < 32; n++) {
+      for (let n = 0; n < this.length; n++) {
         this.trackArrays[arr].push(new Beat(null, 80, n));
       }
     }
@@ -90,7 +91,7 @@ export default {
           }
           this.paused ? null : elapsed++;
 
-          if (elapsed == 320) {
+          if (elapsed == this.length * 10) {
             elapsed = 0;
             this.position = 0;
           }
@@ -141,9 +142,9 @@ export default {
         if (beat.index == timeObject.index) {
           beat.time = beat.time + timeObject.time;
           if (beat.time == -1) {
-            beat.time = 319;
+            beat.time = this.length * 10 - 1;
           }
-          if (beat.time == 320) {
+          if (beat.time == this.length * 10) {
             beat.time = 0;
           }
         }
@@ -151,7 +152,7 @@ export default {
     },
     resetFunction() {
       for (let arr = 0; arr < this.totalTracks; arr++) {
-        for (let n = 0; n < 32; n++) {
+        for (let n = 0; n < this.length; n++) {
           this.trackArrays[arr][n].time = null;
           this.trackArrays[arr][n].volume = 80;
         }
