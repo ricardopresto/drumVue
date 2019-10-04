@@ -18,12 +18,14 @@ export default {
   margin: 10px;
   display: flex;
   flex-direction: row;
+  margin-left: 140px;
 }
 #box {
   width: 20px;
   height: 6px;
   margin: 2px;
   display: inline-block;
+  flex-shrink: 0;
   border: 1px solid slateblue;
 }
 .current {

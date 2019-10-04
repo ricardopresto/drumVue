@@ -2,6 +2,7 @@
   <div>
     <Controls
       @play-function="playFunction"
+      @pause-function="pauseFunction"
       @stop-function="stopFunction"
       @reset-function="resetFunction"
     />
@@ -12,6 +13,8 @@
       @mute-click="trackMute(track)"
       @edit-click="editTrack(track)"
       :trackArray="trackArrays[track]"
+      :trackName="trackNames[track]"
+      :class="{selected: currentTrackNumber == track}"
     />
     <Counter :position="position" />
     <Edit
@@ -41,6 +44,7 @@ export default {
     return {
       totalTracks: 4,
       trackArrays: [],
+      trackNames: ["Snare", "Kick", "Hi-hat Closed", "Hi-hat Open"],
       audioFiles: [
         new Audio(require("./sounds/snare.mp3")),
         new Audio(require("./sounds/kick.mp3")),
@@ -52,7 +56,8 @@ export default {
       loop: null,
       speed: 14,
       playing: false,
-      currentTrackNumber: 0
+      paused: false,
+      currentTrackNumber: null
     };
   },
   mounted() {
@@ -83,7 +88,7 @@ export default {
               }
             });
           }
-          elapsed++;
+          this.paused ? null : elapsed++;
 
           if (elapsed == 320) {
             elapsed = 0;
@@ -93,10 +98,14 @@ export default {
       }
       this.playing = true;
     },
+    pauseFunction() {
+      this.paused = !this.paused;
+    },
     stopFunction() {
       clearInterval(this.loop);
       this.position = 0;
       this.playing = false;
+      this.paused = false;
     },
     trackPlay(track, vol) {
       this.audioFiles[track].currentTime = 0;
@@ -156,5 +165,8 @@ export default {
 * {
   padding: 0;
   margin: 0;
+}
+.selected {
+  background-color: lightgrey;
 }
 </style>

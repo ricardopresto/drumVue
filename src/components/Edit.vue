@@ -29,6 +29,7 @@ export default {
   flex-direction: row;
   width: 100%;
   margin: 10px;
+  margin-left: 140px;
 }
 .hidden {
   visibility: hidden;
