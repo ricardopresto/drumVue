@@ -18,13 +18,15 @@
           </svg>
         </button>
       </div>
-      <div
-        v-for="beat in trackArray"
-        :key="beat.index"
-        @click="$emit('box-click', beat.index)"
-        class="box"
-        :class="{ select: beat.time != null }"
-      ></div>
+      <div id="trackContainer">
+        <div
+          v-for="beat in trackArray"
+          :key="beat.index"
+          @click="$emit('box-click', beat.index)"
+          class="box"
+          :class="{ select: beat.time != null }"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
