@@ -66,7 +66,7 @@ export default {
   justify-content: flex-end;
   align-items: center;
   flex-shrink: 0;
-  width: 130px;
+  width: 150px;
 }
 .box {
   width: 20px;
@@ -75,6 +75,7 @@ export default {
   display: inline-block;
   flex-shrink: 0;
   border: 1px solid black;
+  border-radius: 3px;
 }
 button {
   margin: 2px;

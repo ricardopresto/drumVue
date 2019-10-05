@@ -1,29 +1,38 @@
 <template>
   <div>
-    <Controls
-      @play-function="playFunction"
-      @pause-function="pauseFunction"
-      @stop-function="stopFunction"
-      @reset-function="resetFunction"
-      :paused="paused"
-    />
-    <Track
-      v-for="(n, track) in totalTracks"
-      :key="track"
-      @box-click="trackClick($event, trackArrays[track])"
-      @mute-click="trackMute(track)"
-      @edit-click="editTrack(track)"
-      :trackArray="trackArrays[track]"
-      :trackName="trackNames[track]"
-      :class="{selected: currentTrackNumber == track}"
-    />
-    <Counter :position="position" :length="length" />
-    <Edit
-      :currentTrack="trackArrays[currentTrackNumber]"
-      :currentTrackNumber="currentTrackNumber"
-      @volume-change="volChange($event)"
-      @time-change="timeChange($event)"
-    />
+    <div id="tracks">
+      <Track
+        v-for="(n, track) in totalTracks"
+        :key="track"
+        @box-click="trackClick($event, trackArrays[track])"
+        @mute-click="trackMute(track)"
+        @edit-click="editTrack(track)"
+        :trackArray="trackArrays[track]"
+        :trackName="trackNames[track]"
+        :class="{selected: currentTrackNumber == track}"
+        class="track"
+      />
+    </div>
+    <div id="controlBox">
+      <div id="buttons">
+        <Controls
+          @play-function="playFunction"
+          @pause-function="pauseFunction"
+          @stop-function="stopFunction"
+          @reset-function="resetFunction"
+          :paused="paused"
+        />
+      </div>
+      <div id="countAndEdit">
+        <Counter :position="position" :length="length" />
+        <Edit
+          :currentTrack="trackArrays[currentTrackNumber]"
+          :currentTrackNumber="currentTrackNumber"
+          @volume-change="volChange($event)"
+          @time-change="timeChange($event)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,7 +54,7 @@ export default {
     return {
       totalTracks: 4,
       trackArrays: [],
-      trackNames: ["Snare", "Kick", "Hi-hat Closed", "Hi-hat Open"],
+      trackNames: ["Snare", "Kick", "Hi-Hat Closed", "Hi-Hat Open"],
       audioFiles: [
         new Audio(require("./sounds/snare.mp3")),
         new Audio(require("./sounds/kick.mp3")),
@@ -64,14 +73,17 @@ export default {
   },
   mounted() {
     class Beat {
-      constructor(time, volume, index) {
-        (this.time = time), (this.volume = volume), (this.index = index);
+      constructor(time, timeShifted, volume, index) {
+        (this.time = time),
+          (this.timeShifted = timeShifted),
+          (this.volume = volume),
+          (this.index = index);
       }
     }
     for (let arr = 0; arr < this.totalTracks; arr++) {
       this.trackArrays.push([]);
       for (let n = 0; n < this.length; n++) {
-        this.trackArrays[arr].push(new Beat(null, 80, n));
+        this.trackArrays[arr].push(new Beat(null, 0, 80, n));
       }
     }
   },
@@ -143,6 +155,7 @@ export default {
     timeChange(timeObject) {
       this.trackArrays[this.currentTrackNumber].forEach(beat => {
         if (beat.index == timeObject.index) {
+          beat.timeShifted = beat.timeShifted + timeObject.time;
           beat.time = beat.time + timeObject.time;
           if (beat.time == -1) {
             beat.time = this.length * 10 - 1;
@@ -172,5 +185,26 @@ export default {
 }
 .selected {
   background-color: lightgrey;
+}
+#tracks {
+  margin: 20px;
+  border: 1px solid slateblue;
+  border-radius: 10px;
+  padding: 20px;
+}
+#controlBox {
+  display: flex;
+  flex-direction: row;
+  width: min-content;
+}
+#buttons {
+  width: min-content;
+}
+#countAndEdit {
+  margin-left: 20px;
+}
+.track {
+  border: 1ps solid #fff;
+  border-radius: 6px;
 }
 </style>

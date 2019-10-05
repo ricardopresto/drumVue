@@ -15,10 +15,9 @@ export default {
 #container {
   width: 100%;
   height: 20px;
-  margin: 10px;
+  margin: 0 10px 10px 10px;
   display: flex;
   flex-direction: row;
-  margin-left: 140px;
 }
 #box {
   width: 20px;

@@ -5,7 +5,7 @@
         <div id="volumeInner" ref="volumeInner"></div>
       </div>
       <div>
-        <div class="timeShift" id="push" @click="pushClick">
+        <div class="timeShift" id="push" @click="pushClick" :class="{highlighted: timeShifted < 0}">
           <svg
             width="20"
             height="20"
@@ -19,8 +19,8 @@
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </div>
-        <div class="timeShift" id="adjustedTime">{{timeShifted}}</div>
-        <div class="timeShift" id="pull" @click="pullClick">
+        <div class="timeShiftValue" id="adjustedTime">{{Math.abs(timeShifted)}}</div>
+        <div class="timeShift" id="pull" @click="pullClick" :class="{highlighted: timeShifted > 0}">
           <svg
             width="20"
             height="20"
@@ -42,12 +42,7 @@
 <script>
 export default {
   name: "EditBox",
-  data() {
-    return {
-      timeShifted: 0
-    };
-  },
-  props: ["volume"],
+  props: ["volume", "timeShifted"],
   mounted() {
     this.$nextTick(() => {
       this.$refs.volumeInner.style.height = `${this.volume}px`;
@@ -61,11 +56,9 @@ export default {
       this.$emit("volume-change", volHeight);
     },
     pushClick() {
-      this.timeShifted--;
       this.$emit("time-change", -1);
     },
     pullClick() {
-      this.timeShifted++;
       this.$emit("time-change", +1);
     }
   }
@@ -99,6 +92,18 @@ export default {
   margin: 2px 0;
   text-align: center;
   cursor: default;
+  background-color: white;
+}
+.timeShiftValue {
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+  margin: 2px 0;
+  text-align: center;
+  cursor: default;
+  background-color: royalblue;
+}
+.highlighted {
   background-color: royalblue;
 }
 </style>

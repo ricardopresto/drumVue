@@ -7,6 +7,7 @@
       @volume-change="$emit('volume-change', {volume: $event, index: beat.index})"
       @time-change="$emit('time-change', {time: $event, index: beat.index})"
       :volume="beat.volume"
+      :timeShifted="beat.timeShifted"
       :class="{ hidden: beat.time == null }"
     />
   </div>
@@ -27,9 +28,11 @@ export default {
 #container {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  margin: 10px;
-  margin-left: 140px;
+  width: 840px;
+  height: 178px;
+  padding: 10px;
+  border: 1px solid slateblue;
+  border-radius: 10px;
 }
 .hidden {
   visibility: hidden;
