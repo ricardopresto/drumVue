@@ -56,10 +56,10 @@ export default {
       this.$emit("volume-change", volHeight);
     },
     pushClick() {
-      this.$emit("time-change", -1);
+      this.timeShifted > -9 ? this.$emit("time-change", -1) : null;
     },
     pullClick() {
-      this.$emit("time-change", +1);
+      this.timeShifted < 9 ? this.$emit("time-change", +1) : null;
     }
   }
 };

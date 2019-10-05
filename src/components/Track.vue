@@ -3,7 +3,7 @@
     <div id="container">
       <div id="trackInfo">
         <div id="name" @click="editClick">{{trackName}}</div>
-        <button id="mute" @click="muteClick" :class="{ muted: muted }">
+        <div id="mute" @click="muteClick" :class="{ muted: muted }">
           <svg
             width="20"
             height="20"
@@ -16,17 +16,15 @@
           >
             <path d="M11 5L6 9H2v6h4l5 4zM22 9l-6 6M16 9l6 6" />
           </svg>
-        </button>
+        </div>
       </div>
-      <div id="trackContainer">
-        <div
-          v-for="beat in trackArray"
-          :key="beat.index"
-          @click="$emit('box-click', beat.index)"
-          class="box"
-          :class="{ select: beat.time != null }"
-        ></div>
-      </div>
+      <div
+        v-for="beat in trackArray"
+        :key="beat.index"
+        @click="$emit('box-click', beat.index)"
+        class="box"
+        :class="{ select: beat.time != null }"
+      ></div>
     </div>
   </div>
 </template>
@@ -79,9 +77,11 @@ export default {
   border: 1px solid black;
   border-radius: 3px;
 }
-button {
-  margin: 2px;
-  height: 22px;
+#mute {
+  margin: 2px 10px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
 }
 #name {
   width: 100px;
@@ -91,9 +91,6 @@ button {
 }
 .muted {
   background-color: red;
-}
-.editing {
-  background-color: slateblue;
 }
 .select {
   background-color: blue;
