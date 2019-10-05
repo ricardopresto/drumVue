@@ -52,14 +52,27 @@ export default {
   },
   data() {
     return {
-      totalTracks: 4,
+      totalTracks: 8,
       trackArrays: [],
-      trackNames: ["Snare", "Kick", "Hi-Hat Closed", "Hi-Hat Open"],
+      trackNames: [
+        "Hi-Hat Closed",
+        "Hi-Hat Open",
+        "Crash",
+        "Cowbell",
+        "Snare",
+        "Hi Tom",
+        "Mid Tom",
+        "Kick"
+      ],
       audioFiles: [
-        new Audio(require("./sounds/snare.mp3")),
-        new Audio(require("./sounds/kick.mp3")),
         new Audio(require("./sounds/hat-closed.mp3")),
-        new Audio(require("./sounds/hat-open.mp3"))
+        new Audio(require("./sounds/hat-open.mp3")),
+        new Audio(require("./sounds/crash.mp3")),
+        new Audio(require("./sounds/cowbell.mp3")),
+        new Audio(require("./sounds/snare.mp3")),
+        new Audio(require("./sounds/hitom.mp3")),
+        new Audio(require("./sounds/midtom.mp3")),
+        new Audio(require("./sounds/kick.mp3"))
       ],
       length: 32,
       position: 0,

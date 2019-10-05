@@ -101,9 +101,10 @@ export default {
   margin: 2px 0;
   text-align: center;
   cursor: default;
-  background-color: royalblue;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: slateblue;
 }
 .highlighted {
-  background-color: royalblue;
+  background-color: slateblue;
 }
 </style>
