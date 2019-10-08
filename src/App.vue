@@ -191,7 +191,9 @@ export default {
       for (let arr = 0; arr < this.totalTracks; arr++) {
         for (let n = 0; n < this.length; n++) {
           this.trackArrays[arr][n].time = null;
+          this.trackArrays[arr][n].timeShifted = 0;
           this.trackArrays[arr][n].volume = 80;
+          this.currentTrackNumber = null;
         }
       }
     }
