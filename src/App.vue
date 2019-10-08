@@ -20,6 +20,7 @@
           @pause-function="pauseFunction"
           @stop-function="stopFunction"
           @reset-function="resetFunction"
+          @speed-change="speedChange($event)"
           :paused="paused"
         />
       </div>
@@ -78,7 +79,7 @@ export default {
       position: 0,
       mutedTracks: [],
       loop: null,
-      speed: 14,
+      speed: 20,
       playing: false,
       paused: false,
       currentTrackNumber: null
@@ -101,10 +102,14 @@ export default {
     }
   },
   methods: {
-    playFunction() {
-      let elapsed = 0;
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    async playFunction() {
       if (!this.playing) {
-        this.loop = setInterval(() => {
+        let elapsed = 0;
+        this.playing = true;
+        while (this.playing) {
           if (elapsed % 10 == 0) {
             this.position = elapsed / 10;
           }
@@ -121,9 +126,9 @@ export default {
             elapsed = 0;
             this.position = 0;
           }
-        }, this.speed);
+          await this.sleep(this.speed);
+        }
       }
-      this.playing = true;
     },
     pauseFunction() {
       if (this.playing) {
@@ -131,7 +136,7 @@ export default {
       }
     },
     stopFunction() {
-      clearInterval(this.loop);
+      //clearInterval(this.loop);
       this.position = 0;
       this.playing = false;
       this.paused = false;
@@ -178,6 +183,9 @@ export default {
           }
         }
       });
+    },
+    speedChange(change) {
+      this.speed = 36 - change;
     },
     resetFunction() {
       for (let arr = 0; arr < this.totalTracks; arr++) {

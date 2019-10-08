@@ -58,6 +58,7 @@
           <path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38" />
         </svg>
       </button>
+      <input v-model="speedSlider" type="range" min="6" max="30" value="22" @change="speedChange" />
     </div>
   </div>
 </template>
@@ -65,7 +66,17 @@
 <script>
 export default {
   name: "Controls",
-  props: ["paused"]
+  data: function() {
+    return {
+      speedSlider: ""
+    };
+  },
+  props: ["paused"],
+  methods: {
+    speedChange() {
+      this.$emit("speed-change", this.speedSlider);
+    }
+  }
 };
 </script>
 
@@ -83,5 +94,9 @@ button {
 }
 .paused {
   background-color: lightslategrey;
+}
+input {
+  width: 100px;
+  margin: 5px;
 }
 </style>
