@@ -21,6 +21,7 @@
           @stop-function="stopFunction"
           @reset-function="resetFunction"
           @speed-change="speedChange($event)"
+          @length-change="lengthChange($event)"
           :paused="paused"
         />
       </div>
@@ -82,26 +83,29 @@ export default {
       speed: 20,
       playing: false,
       paused: false,
-      currentTrackNumber: null
+      currentTrackNumber: 0
     };
   },
   mounted() {
-    class Beat {
-      constructor(time, timeShifted, volume, index) {
-        (this.time = time),
-          (this.timeShifted = timeShifted),
-          (this.volume = volume),
-          (this.index = index);
-      }
-    }
-    for (let arr = 0; arr < this.totalTracks; arr++) {
-      this.trackArrays.push([]);
-      for (let n = 0; n < this.length; n++) {
-        this.trackArrays[arr].push(new Beat(null, 0, 80, n));
-      }
-    }
+    this.initialize();
   },
   methods: {
+    initialize() {
+      class Beat {
+        constructor(time, timeShifted, volume, index) {
+          (this.time = time),
+            (this.timeShifted = timeShifted),
+            (this.volume = volume),
+            (this.index = index);
+        }
+      }
+      for (let arr = 0; arr < this.totalTracks; arr++) {
+        this.trackArrays.push([]);
+        for (let n = 0; n < this.length; n++) {
+          this.trackArrays[arr].push(new Beat(null, 0, 80, n));
+        }
+      }
+    },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
@@ -136,7 +140,6 @@ export default {
       }
     },
     stopFunction() {
-      //clearInterval(this.loop);
       this.position = 0;
       this.playing = false;
       this.paused = false;
@@ -193,8 +196,16 @@ export default {
           this.trackArrays[arr][n].time = null;
           this.trackArrays[arr][n].timeShifted = 0;
           this.trackArrays[arr][n].volume = 80;
-          this.currentTrackNumber = null;
+          this.currentTrackNumber = 0;
         }
+      }
+    },
+    lengthChange(len) {
+      if (len != this.length) {
+        this.stopFunction();
+        this.trackArrays = [];
+        this.length = len;
+        this.initialize();
       }
     }
   }
@@ -214,6 +225,7 @@ export default {
   border: 1px solid slateblue;
   border-radius: 10px;
   padding: 20px;
+  width: min-content;
 }
 #controlBox {
   display: flex;

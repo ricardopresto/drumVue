@@ -59,6 +59,10 @@
         </svg>
       </button>
       <input v-model="speedSlider" type="range" min="6" max="30" value="22" @change="speedChange" />
+      <div>
+        <span @click="$emit('length-change', 16)">16&ensp;</span>
+        <span @click="$emit('length-change', 32)">32</span>
+      </div>
     </div>
   </div>
 </template>

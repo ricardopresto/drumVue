@@ -28,7 +28,7 @@ export default {
 #container {
   display: flex;
   flex-direction: row;
-  width: 840px;
+  width: min-content;
   height: 178px;
   padding: 10px;
   border: 1px solid slateblue;
