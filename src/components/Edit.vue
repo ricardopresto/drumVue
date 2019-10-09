@@ -30,7 +30,7 @@ export default {
   flex-direction: row;
   width: min-content;
   height: 178px;
-  padding: 10px;
+  padding: 10px 13px 10px 10px;
   border: 1px solid slateblue;
   border-radius: 10px;
 }

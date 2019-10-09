@@ -66,7 +66,7 @@ export default {
   justify-content: flex-end;
   align-items: center;
   flex-shrink: 0;
-  width: 150px;
+  width: 160px;
 }
 .box {
   width: 20px;

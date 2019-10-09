@@ -86,6 +86,9 @@ export default {
 
 <style scoped>
 #container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-left: 20px;
   padding: 20px;
   border: 1px solid slateblue;

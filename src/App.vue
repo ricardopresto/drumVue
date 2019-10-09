@@ -224,7 +224,7 @@ export default {
   margin: 20px;
   border: 1px solid slateblue;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px 5px 10px 10px;
   width: min-content;
 }
 #controlBox {
