@@ -196,7 +196,10 @@ export default {
           this.trackArrays[arr][n].time = null;
           this.trackArrays[arr][n].timeShifted = 0;
           this.trackArrays[arr][n].volume = 80;
-          this.currentTrackNumber = 0;
+          this.currentTrackNumber = null;
+          this.$nextTick(() => {
+            this.currentTrackNumber = 0;
+          });
         }
       }
     },
@@ -205,6 +208,10 @@ export default {
         this.stopFunction();
         this.trackArrays = [];
         this.length = len;
+        this.currentTrackNumber = null;
+        this.$nextTick(() => {
+          this.currentTrackNumber = 0;
+        });
         this.initialize();
       }
     }
