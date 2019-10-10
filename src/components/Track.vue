@@ -85,7 +85,6 @@ export default {
 }
 #name {
   width: 100px;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 0.9em;
   cursor: default;
 }

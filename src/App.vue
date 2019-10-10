@@ -33,6 +33,13 @@
           @volume-change="volChange($event)"
           @time-change="timeChange($event)"
         />
+        <div>
+          <TempoControl
+            @speed-change="speedChange($event)"
+            @length-change="lengthChange($event)"
+            :length="length"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -43,6 +50,7 @@ import Controls from "./components/Controls.vue";
 import Track from "./components/Track.vue";
 import Counter from "./components/Counter.vue";
 import Edit from "./components/Edit.vue";
+import TempoControl from "./components/TempoControl.vue";
 
 export default {
   name: "App",
@@ -50,7 +58,8 @@ export default {
     Controls,
     Track,
     Counter,
-    Edit
+    Edit,
+    TempoControl
   },
   data() {
     return {
@@ -223,6 +232,7 @@ export default {
 * {
   padding: 0;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .selected {
   background-color: lightgrey;
