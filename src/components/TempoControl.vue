@@ -62,6 +62,30 @@ export default {
 }
 input {
   width: 200px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  outline: none;
+  background-color: #383838;
+  border: 1px solid slateblue;
+  border-radius: 6px;
+}
+input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  background: slateblue;
+  cursor: default;
+}
+
+input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  background: slateblue;
+  cursor: default;
 }
 #length {
   display: flex;
