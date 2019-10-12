@@ -11,7 +11,7 @@
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#000000"
+            stroke="#ddd"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -26,7 +26,7 @@
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#000000"
+            stroke="#ddd"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -83,7 +83,7 @@ export default {
 }
 #volumeInner {
   width: 20px;
-  background-color: slateblue;
+  background-color: #54497f;
 }
 .timeShift {
   height: 20px;
@@ -92,7 +92,7 @@ export default {
   margin: 2px 0;
   text-align: center;
   cursor: default;
-  background-color: white;
+  background-color: #383838;
 }
 .timeShiftValue {
   height: 20px;

@@ -9,7 +9,7 @@
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#000000"
+            stroke="#888"
             stroke-width="1"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -67,6 +67,7 @@ export default {
   align-items: center;
   flex-shrink: 0;
   width: 160px;
+  color: #ddd;
 }
 .box {
   width: 20px;
@@ -89,9 +90,10 @@ export default {
   cursor: default;
 }
 .muted {
-  background-color: red;
+  background-color: orange;
 }
 .select {
-  background-color: blue;
+  border: 1px solid slateblue;
+  background-color: #54497f;
 }
 </style>

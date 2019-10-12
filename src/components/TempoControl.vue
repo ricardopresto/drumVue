@@ -52,6 +52,7 @@ export default {
   padding: 10px;
   margin-top: 20px;
   font-size: 0.9em;
+  color: #ddd;
 }
 #tempo {
   display: flex;

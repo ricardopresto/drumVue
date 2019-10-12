@@ -241,8 +241,15 @@ export default {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
+body {
+  background-color: #383838;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .selected {
-  background-color: lightgrey;
+  background-color: #4b4b50;
 }
 #tracks {
   margin: 20px;

@@ -28,6 +28,6 @@ export default {
   border: 1px solid slateblue;
 }
 .current {
-  background-color: slateblue;
+  background-color: orange;
 }
 </style>

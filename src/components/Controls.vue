@@ -7,7 +7,7 @@
           height="30"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000000"
+          stroke="#ddd"
           stroke-width="1"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -22,7 +22,7 @@
           height="30"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000000"
+          stroke="#ddd"
           stroke-width="1"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -38,7 +38,7 @@
           height="30"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000000"
+          stroke="#ddd"
           stroke-width="1"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -53,7 +53,7 @@
           height="30"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000000"
+          stroke="#ddd"
           stroke-width="1"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -79,7 +79,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-left: 20px;
-  padding: 20px;
+  padding: 14px 20px 14px 20px;
   border: 1px solid slateblue;
   border-radius: 10px;
 }
@@ -88,11 +88,16 @@ button {
   height: 60px;
   margin: 5px;
   text-align: center;
+  appearance: none;
+  border: 1px solid slateblue;
+  border-radius: 6px;
+  background-color: #414144;
+  color: #ddd;
 }
 span {
   display: block;
 }
 .paused {
-  background-color: lightslategrey;
+  background-color: #54545c;
 }
 </style>
