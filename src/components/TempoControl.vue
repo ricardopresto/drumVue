@@ -2,7 +2,7 @@
   <div>
     <div id="container">
       <div id="length">
-        <span>Loop Length (16th notes)&ensp;</span>
+        <span>Length&ensp;</span>
         <div id="lengthpick">
           <span
             id="length16"
@@ -44,9 +44,9 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  width: 420px;
+  width: 419px;
   border: 1px solid slateblue;
   border-radius: 10px;
   padding: 10px;
@@ -54,12 +54,18 @@ export default {
   font-size: 0.9em;
 }
 #tempo {
-  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 20px;
 }
 input {
   width: 200px;
 }
 #length {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin: 5px;
 }
 #lengthpick {

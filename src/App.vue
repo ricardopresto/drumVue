@@ -52,6 +52,15 @@ import Counter from "./components/Counter.vue";
 import Edit from "./components/Edit.vue";
 import TempoControl from "./components/TempoControl.vue";
 
+class Beat {
+        constructor(time, timeShifted, volume, index) {
+          (this.time = time),
+            (this.timeShifted = timeShifted),
+            (this.volume = volume),
+            (this.index = index);
+        }
+      }
+
 export default {
   name: "App",
   components: {
@@ -100,14 +109,6 @@ export default {
   },
   methods: {
     initialize() {
-      class Beat {
-        constructor(time, timeShifted, volume, index) {
-          (this.time = time),
-            (this.timeShifted = timeShifted),
-            (this.volume = volume),
-            (this.index = index);
-        }
-      }
       for (let arr = 0; arr < this.totalTracks; arr++) {
         this.trackArrays.push([]);
         for (let n = 0; n < this.length; n++) {
@@ -215,13 +216,19 @@ export default {
     lengthChange(len) {
       if (len != this.length) {
         this.stopFunction();
-        this.trackArrays = [];
+        if (this.length == 16) {
+          for (let arr = 0; arr < this.totalTracks; arr++) {
+        this.trackArrays.push([]);
+        for (let n = 16; n < 32; n++) {
+          this.trackArrays[arr].push(new Beat(null, 0, 80, n));
+            }
+          }
+        } else {
+          for (let arr = 0; arr < this.totalTracks; arr++) {
+            this.trackArrays[arr].splice(16);
+          }
+        }
         this.length = len;
-        this.currentTrackNumber = null;
-        this.$nextTick(() => {
-          this.currentTrackNumber = 0;
-        });
-        this.initialize();
       }
     }
   }
