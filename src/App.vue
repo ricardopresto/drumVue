@@ -53,13 +53,13 @@ import Edit from "./components/Edit.vue";
 import TempoControl from "./components/TempoControl.vue";
 
 class Beat {
-        constructor(time, timeShifted, volume, index) {
-          (this.time = time),
-            (this.timeShifted = timeShifted),
-            (this.volume = volume),
-            (this.index = index);
-        }
-      }
+  constructor(time, timeShifted, volume, index) {
+    (this.time = time),
+      (this.timeShifted = timeShifted),
+      (this.volume = volume),
+      (this.index = index);
+  }
+}
 
 export default {
   name: "App",
@@ -96,7 +96,7 @@ export default {
       ],
       length: 32,
       position: 0,
-      mutedTracks: [],
+      mutedTracks: {},
       loop: null,
       speed: 20,
       playing: false,
@@ -111,6 +111,7 @@ export default {
     initialize() {
       for (let arr = 0; arr < this.totalTracks; arr++) {
         this.trackArrays.push([]);
+        this.mutedTracks[arr] = false;
         for (let n = 0; n < this.length; n++) {
           this.trackArrays[arr].push(new Beat(null, 0, 80, n));
         }
@@ -157,7 +158,7 @@ export default {
     trackPlay(track, vol) {
       this.audioFiles[track].currentTime = 0;
       this.audioFiles[track].volume = vol / 100;
-      this.mutedTracks.includes(track) ? null : this.audioFiles[track].play();
+      this.mutedTracks[track] == true ? null : this.audioFiles[track].play();
     },
     trackClick(index, trackArray) {
       if (trackArray[index].time == null) {
@@ -167,11 +168,7 @@ export default {
       }
     },
     trackMute(m) {
-      if (this.mutedTracks.includes(m)) {
-        this.mutedTracks = this.mutedTracks.filter(i => i != m);
-      } else {
-        this.mutedTracks.push(m);
-      }
+      this.mutedTracks[m] = !this.mutedTracks[m];
     },
     editTrack(e) {
       this.currentTrackNumber = e;
@@ -218,9 +215,9 @@ export default {
         this.stopFunction();
         if (this.length == 16) {
           for (let arr = 0; arr < this.totalTracks; arr++) {
-        this.trackArrays.push([]);
-        for (let n = 16; n < 32; n++) {
-          this.trackArrays[arr].push(new Beat(null, 0, 80, n));
+            this.trackArrays.push([]);
+            for (let n = 16; n < 32; n++) {
+              this.trackArrays[arr].push(new Beat(null, 0, 80, n));
             }
           }
         } else {
