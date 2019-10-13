@@ -130,7 +130,7 @@ export default {
           }
           for (let arr = 0; arr < this.totalTracks; arr++) {
             this.trackArrays[arr].forEach(beat => {
-              if (beat.time == elapsed) {
+              if (beat.time == elapsed && this.mutedTracks[arr] == false) {
                 this.trackPlay(arr, beat.volume);
               }
             });
@@ -158,7 +158,7 @@ export default {
     trackPlay(track, vol) {
       this.audioFiles[track].currentTime = 0;
       this.audioFiles[track].volume = vol / 100;
-      this.mutedTracks[track] == true ? null : this.audioFiles[track].play();
+      this.audioFiles[track].play();
     },
     trackClick(index, trackArray) {
       if (trackArray[index].time == null) {
