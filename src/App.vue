@@ -99,7 +99,7 @@ export default {
       position: 0,
       mutedTracks: {},
       loop: null,
-      speed: 22,
+      speed: 14,
       playing: false,
       paused: false,
       currentTrackNumber: 0

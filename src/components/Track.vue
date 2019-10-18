@@ -23,7 +23,7 @@
         :key="beat.index"
         @click="$emit('box-click', beat.index)"
         class="box"
-        :class="{ select: beat.time != null }"
+        :class="{ select: beat.time != null, fourth: beat.index % 4 == 0 }"
       ></div>
     </div>
   </div>
@@ -75,13 +75,13 @@ export default {
   margin: 2px;
   display: inline-block;
   flex-shrink: 0;
-  border: 1px solid black;
+  border: 1px solid #222;
   border-radius: 3px;
 }
 #mute {
   margin: 2px 10px;
   height: 20px;
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 3px;
 }
 #name {
@@ -91,6 +91,9 @@ export default {
 }
 .muted {
   background-color: orange;
+}
+.fourth {
+  border: 1px solid #000;
 }
 .select {
   border: 1px solid slateblue;
