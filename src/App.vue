@@ -51,6 +51,7 @@ import Track from "./components/Track.vue";
 import Counter from "./components/Counter.vue";
 import Edit from "./components/Edit.vue";
 import TempoControl from "./components/TempoControl.vue";
+import demoArray from "./components/demoArray";
 
 class Beat {
   constructor(time, timeShifted, volume, index) {
@@ -94,18 +95,21 @@ export default {
         new Audio(require("./sounds/midtom.mp3")),
         new Audio(require("./sounds/kick.mp3"))
       ],
-      length: 32,
+      length: 16,
       position: 0,
       mutedTracks: {},
       loop: null,
-      speed: 20,
+      speed: 22,
       playing: false,
       paused: false,
       currentTrackNumber: 0
     };
   },
   mounted() {
-    this.initialize();
+    for (let arr = 0; arr < this.totalTracks; arr++) {
+      this.mutedTracks[arr] = false;
+    }
+    this.trackArrays = demoArray;
   },
   methods: {
     initialize() {

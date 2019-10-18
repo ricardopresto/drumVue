@@ -29,7 +29,7 @@ export default {
   name: "TempoControl",
   data: function() {
     return {
-      speedSlider: ""
+      speedSlider: "22"
     };
   },
   props: ["length"],
@@ -95,9 +95,7 @@ input::-moz-range-thumb {
 }
 #lengthpick {
   display: inline-block;
-  border: 1px solid slateblue;
-  border-radius: 10px;
-  padding: 5px 0 5px 0;
+  padding: 6px 0 6px 0;
   cursor: default;
 }
 .selected {
@@ -105,10 +103,14 @@ input::-moz-range-thumb {
 }
 #length16 {
   padding: 5px;
-  border-radius: 6px 0 0 6px;
+  border: 1px solid slateblue;
+
+  border-radius: 8px 0 0 8px;
 }
 #length32 {
   padding: 5px;
-  border-radius: 0 6px 6px 0;
+  border: 1px solid slateblue;
+
+  border-radius: 0 8px 8px 0;
 }
 </style>
