@@ -9,7 +9,7 @@
         @edit-click="editTrack(track)"
         :trackArray="trackArrays[track]"
         :trackName="trackNames[track]"
-        :class="{selected: currentTrackNumber == track}"
+        :class="{ selected: currentTrackNumber == track }"
         class="track"
       />
     </div>
@@ -52,6 +52,7 @@ import Counter from "./components/Counter.vue";
 import Edit from "./components/Edit.vue";
 import TempoControl from "./components/TempoControl.vue";
 import demoArray from "./components/demoArray";
+import { Howl, Howler } from "howler";
 
 class Beat {
   constructor(time, timeShifted, volume, index) {
@@ -86,14 +87,14 @@ export default {
         "Kick"
       ],
       audioFiles: [
-        new Audio(require("./sounds/hat-closed.mp3")),
-        new Audio(require("./sounds/hat-open.mp3")),
-        new Audio(require("./sounds/crash.mp3")),
-        new Audio(require("./sounds/cowbell.mp3")),
-        new Audio(require("./sounds/snare.mp3")),
-        new Audio(require("./sounds/hitom.mp3")),
-        new Audio(require("./sounds/midtom.mp3")),
-        new Audio(require("./sounds/kick.mp3"))
+        new Howl({ src: [require("./sounds/hat-closed.mp3")] }),
+        new Howl({ src: [require("./sounds/hat-open.mp3")] }),
+        new Howl({ src: [require("./sounds/crash.mp3")] }),
+        new Howl({ src: [require("./sounds/cowbell.mp3")] }),
+        new Howl({ src: [require("./sounds/snare.mp3")] }),
+        new Howl({ src: [require("./sounds/hitom.mp3")] }),
+        new Howl({ src: [require("./sounds/midtom.mp3")] }),
+        new Howl({ src: [require("./sounds/kick.mp3")] })
       ],
       length: 16,
       position: 0,
@@ -160,8 +161,8 @@ export default {
       this.paused = false;
     },
     trackPlay(track, vol) {
-      this.audioFiles[track].currentTime = 0;
-      this.audioFiles[track].volume = vol / 100;
+      this.audioFiles[track].seek(0);
+      this.audioFiles[track].volume(vol / 100);
       this.audioFiles[track].play();
     },
     trackClick(index, trackArray) {
@@ -181,6 +182,7 @@ export default {
       this.trackArrays[this.currentTrackNumber].forEach(beat => {
         if (beat.index == volumeObject.index) {
           beat.volume = volumeObject.volume;
+          console.log(volumeObject);
         }
       });
     },
